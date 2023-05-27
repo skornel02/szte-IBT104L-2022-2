@@ -16,7 +16,7 @@ jobs:
       - name: Setup Cpp
         uses: aminya/setup-cpp@v1
         with:
-          compiler: msvc
+          compiler: gcc
           vcvarsall: true
       
       - name: Install CMake
