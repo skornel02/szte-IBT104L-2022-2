@@ -1,13 +1,11 @@
 ﻿cmake_minimum_required (VERSION 3.8)
 
-# Hot Reload in VSC
-if (POLICY CMP0141)
-  cmake_policy(SET CMP0141 NEW)
-  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
-endif()
+project ("kasszas-projekt" C)
 
-project ("projekt")
-
+add_subdirectory ("Billentyu")
+add_subdirectory ("Nyomtato")
 add_subdirectory ("Kaszas")
 
-set(CMAKE_SUPPRESS_REGENERATION true)
+cmake_policy(SET CMP0079 NEW)
+target_link_libraries(Kaszas Billentyu)
+target_link_libraries(Kaszas Nyomtato)
