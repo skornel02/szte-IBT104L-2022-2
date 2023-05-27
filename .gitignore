@@ -38,6 +38,8 @@ bld/
 [Ll]ogs/
 out/
 CMakeFiles/
+cmake-build-debug/
+cmake-build-release/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

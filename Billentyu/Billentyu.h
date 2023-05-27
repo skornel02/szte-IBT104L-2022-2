@@ -1,3 +1,5 @@
 #pragma once
 
-int read_char();
+char read_char();
+
+char test_char();
