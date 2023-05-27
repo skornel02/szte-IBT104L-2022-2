@@ -10,6 +10,11 @@
 *.userosscache
 *.sln.docstates
 
+*.vcxproj
+*.vcxproj.filters
+*.cmake
+CMakeCache.txt
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -32,6 +37,7 @@ bld/
 [Ll]og/
 [Ll]ogs/
 out/
+CMakeFiles/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
