@@ -10,12 +10,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      
       - uses: lukka/get-cmake@latest
 
       - name: Run CMake consuming CMakePresets.json and vcpkg.json by mean of vcpkg.
         uses: lukka/run-cmake@v10
         with:
-          cmakeListsTxtPath: '${{ github.workspace }}/../CMakeLists.txt'
+          cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
           workflowPreset: 'x64-release'
           configurePreset: 'ninja-multi-vcpkg'
 
