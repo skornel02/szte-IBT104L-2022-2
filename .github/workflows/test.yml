@@ -18,7 +18,7 @@ jobs:
         uses: lukka/run-cmake@v10
         with:
           cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
-          workflowPreset: 'x64-release'
+          #workflowPreset: 'x64-release'
           configurePreset: 'ninja-multi-vcpkg'
 
           # This is the name of the CMakePresets.json's configuration to build the project.
