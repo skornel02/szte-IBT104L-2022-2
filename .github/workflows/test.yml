@@ -10,27 +10,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout project
+        uses: actions/checkout@v3
       
-      - uses: lukka/get-cmake@latest
+      - name: Install CMake
+        uses: lukka/get-cmake@latest
 
-      - name: Run CMake consuming CMakePresets.json and vcpkg.json by mean of vcpkg.
+      - name: Run CMake consuming root CMakePresets.json
         uses: lukka/run-cmake@v10
         with:
           cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
-          #workflowPreset: 'x64-release'
           configurePreset: 'ninja-multi-vcpkg'
-
-          # This is the name of the CMakePresets.json's configuration to build the project.
           buildPreset: 'ninja-multi-vcpkg'
-          # Additional arguments can be appended when building, for example to specify the
-          # configuration to build.
-          # This is useful to reduce the number of CMake's Presets you need in CMakePresets.json.
-          buildPresetAdditionalArgs: "['--config Release']"
-    
-          # This is the name of the CMakePresets.json's configuration to test the project with.
-          testPreset: 'ninja-multi-vcpkg'
-          # Additional arguments can be appended when testing, for example to specify the config
-          # to test.
-          # This is useful to reduce the number of CMake's Presets you need in CMakePresets.json.
-          testPresetAdditionalArgs: "['--config Release']"
+
+      - name: List $RUNNER_WORKSPACE after build
+        run: find $RUNNER_WORKSPACE
+        shell: bash
