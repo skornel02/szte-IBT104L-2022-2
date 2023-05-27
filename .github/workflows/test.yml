@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout project
         uses: actions/checkout@v3
@@ -16,16 +16,8 @@ jobs:
       - name: Install CMake
         uses: lukka/get-cmake@latest
 
-      - name: Run CMake config
-        run: cmake ./CMakeLists.txt --preset x64-release
-        shell: bash
-        working-directory: ${{ github.workspace }}
-        
-      - name: Run CMake build
-        run: cmake --build .
-        shell: bash
-        working-directory: ${{ github.workspace }}
-
-      - name: List $RUNNER_WORKSPACE after build
-        run: find $RUNNER_WORKSPACE
-        shell: bash
+      - name: Run CMake consuming root CMakePresets.json
+        uses: lukka/run-cmake@v10
+        with:
+          cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
+          configurePreset: 'x64-release'
