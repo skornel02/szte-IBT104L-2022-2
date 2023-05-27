@@ -2,6 +2,6 @@
 
 int main()
 {
-	printf("Szia világ!\n");
+	printf("Szia vilag!\n");
 	return 0;
 }
