@@ -16,6 +16,7 @@ jobs:
         with:
           compiler: msvc
           vcvarsall: true
+          vcpkg: false
       
       - name: Install CMake
         uses: lukka/get-cmake@latest
