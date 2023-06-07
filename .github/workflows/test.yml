@@ -28,7 +28,7 @@ jobs:
         run: |
           cd '${{ github.workspace }}'
           ls -all
-          cmake --preset x64-debug ./CMakeLists.txt
+          cmake -G "Unix Makefiles" --preset x64-debug ./CMakeLists.txt
           ls -all
           make
           ls -all
