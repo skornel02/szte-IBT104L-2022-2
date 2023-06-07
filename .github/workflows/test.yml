@@ -1,6 +1,8 @@
 name: C/C++ CI
 
 on:
+  push:
+    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
@@ -19,8 +21,11 @@ jobs:
       - name: Install CMake
         uses: lukka/get-cmake@latest
 
+      - name: Install valgrind
+        run: sudo apt-get install -y valgrind libcunit1 libcunit1-dev
+
       - name: Run CMake consuming root CMakePresets.json
         uses: lukka/run-cmake@v10
         with:
           cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
-          configurePreset: 'x64-release'
+          configurePreset: 'x64-debug'
