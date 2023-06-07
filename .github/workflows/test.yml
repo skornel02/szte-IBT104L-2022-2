@@ -29,3 +29,6 @@ jobs:
         with:
           cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
           configurePreset: 'x64-debug'
+      
+      - name: Run tests
+        run: valgrind '${{ github.workspace }}/cmake-build-x64-debug/CUnitRunner' -tool=memcheck --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no
