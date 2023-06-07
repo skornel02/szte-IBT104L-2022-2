@@ -12,20 +12,17 @@ jobs:
     steps:
       - name: Checkout project
         uses: actions/checkout@v3
-        
-      - name: Setup Cpp
-        uses: aminya/setup-cpp@v1
-        with:
-          compiler: gcc
+
+      - name: Install dependencies
+        run: sudo apt-get install -y build-essential cmake valgrind libcunit1 libcunit1-dev make
       
-      - name: Install CMake
-        uses: lukka/get-cmake@latest
+      - name: Build project
+        run: |
+          cd '${{ github.workspace }}'
+          cmake -G"Unix Makefiles" --preset x64-debug .
+          cd cmake-build-x64-debug
+          ls -all
+          make
 
-      - name: Install valgrind
-        run: sudo apt-get install -y valgrind libcunit1 libcunit1-dev
-
-      - name: Run CMake consuming root CMakePresets.json
-        uses: lukka/run-cmake@v10
-        with:
-          cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
-          configurePreset: 'x64-debug'
+      - name: Run tests
+        run: valgrind '${{ github.workspace }}/cmake-build-x64-debug/CUnitRunner' -tool=memcheck --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no
