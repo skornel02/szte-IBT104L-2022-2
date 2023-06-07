@@ -4,9 +4,11 @@
 
 #include <CUnit/Basic.h>
 #include <CUnit/CUnit.h>
+#include "NyomtatoTest.h"
 
 CU_SuiteInfo pnm_suites[] = {
-
+        {"nyomtato", NULL, NULL, NULL, NULL, nyomtato_tests},
+        CU_SUITE_INFO_NULL
 };
 
 int main() {

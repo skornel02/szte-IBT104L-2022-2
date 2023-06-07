@@ -26,3 +26,11 @@ void print_char(char c);
  * @author Vass Kinga
  */
 void print_nyugta(int maxWidth, NYUGTA nyugta);
+
+/**
+ * Megszámolja a számjegyek számát
+ * @param number A szám
+ * @return Hány számjegyű a szám
+ * @author Vass Kinga
+ */
+int getNumbersLength(long int number);
