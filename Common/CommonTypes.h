@@ -13,6 +13,7 @@ typedef struct {
 typedef struct {
     int sorszam;
     PSZ_TETEL** tetelek;
+    int tetelCount;
     OSSZESITES* osszesites;
 } NYUGTA;
 
