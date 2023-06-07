@@ -29,18 +29,9 @@ jobs:
         with:
           cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
           configurePreset: 'x64-debug'
-            
-      - name: List files in dir
-        run: ls -all
-        working-directory: '${{ github.workspace }}'
-        
+      
       - name: Build project
         run: make
-        working-directory: '${{ github.workspace }}'
-        
-      - name: List files in dir
-        run: ls -all
-        working-directory: '${{ github.workspace }}'
-      
+
       - name: Run tests
-        run: valgrind '${{ github.workspace }}/CUnitRunner' -tool=memcheck --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no
+        run: valgrind CUnitRunner -tool=memcheck --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no
