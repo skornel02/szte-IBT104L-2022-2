@@ -23,15 +23,13 @@ jobs:
 
       - name: Install valgrind
         run: sudo apt-get install -y valgrind libcunit1 libcunit1-dev
-
-      - name: Run CMake consuming root CMakePresets.json
-        uses: lukka/run-cmake@v10
-        with:
-          cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
-          configurePreset: 'x64-debug'
       
       - name: Build project
-        run: make
+        run: |
+          cd '${{ github.workspace }}'
+          ls -all
+          cmake --preset x64-debug ./CMakeLists.txt
+          make
 
       - name: Run tests
         run: valgrind CUnitRunner -tool=memcheck --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no
