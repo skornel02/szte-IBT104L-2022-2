@@ -1,12 +1,14 @@
 name: C/C++ CI
 
 on:
+  push:
+    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout project
         uses: actions/checkout@v3
@@ -14,14 +16,16 @@ jobs:
       - name: Setup Cpp
         uses: aminya/setup-cpp@v1
         with:
-          compiler: msvc
-          vcvarsall: true
+          compiler: gcc
       
       - name: Install CMake
         uses: lukka/get-cmake@latest
+
+      - name: Install valgrind
+        run: sudo apt-get install -y valgrind libcunit1 libcunit1-dev
 
       - name: Run CMake consuming root CMakePresets.json
         uses: lukka/run-cmake@v10
         with:
           cmakeListsTxtPath: '${{ github.workspace }}/CMakeLists.txt'
-          configurePreset: 'x64-release'
+          configurePreset: 'x64-debug'
