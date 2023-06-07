@@ -3,8 +3,10 @@
     "configurePresets": [
         {
             "name": "x64-debug",
-            "generator": "Ninja",
+            "generator": "Unix Makefiles",
             "displayName": "x64 Debug",
+            "installDir": "./cmake-build-x64-debug",
+            "binaryDir": "./cmake-build-x64-debug",
             "architecture": {
                 "value": "x64",
                 "strategy": "external"
@@ -16,18 +18,12 @@
         {
             "name": "x64-release",
             "displayName": "x64 Release",
+            "installDir": "./cmake-build-x64-release",
+            "binaryDir": "./cmake-build-x64-release",
             "inherits": "x64-debug",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
-        }
-    ],
-    "buildPresets": [
-        {
-            "name": "Run",
-            "description": "",
-            "displayName": "",
-            "configurePreset": "x64-debug"
         }
     ]
 }
