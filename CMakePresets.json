@@ -3,6 +3,7 @@
     "configurePresets": [
         {
             "name": "x64-debug",
+            "generator": "Ninja",
             "displayName": "x64 Debug",
             "architecture": {
                 "value": "x64",
