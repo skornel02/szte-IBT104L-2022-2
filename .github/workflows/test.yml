@@ -29,7 +29,9 @@ jobs:
           cd '${{ github.workspace }}'
           ls -all
           cmake --preset x64-debug ./CMakeLists.txt
+          ls -all
           make
+          ls -all
 
       - name: Run tests
         run: valgrind CUnitRunner -tool=memcheck --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no
