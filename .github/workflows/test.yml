@@ -20,8 +20,9 @@ jobs:
         run: |
           cd '${{ github.workspace }}'
           cmake -G"Unix Makefiles" --preset x64-debug .
+          cd cmake-build-x64-debug
           ls -all
           make
 
       - name: Run tests
-        run: valgrind CUnitRunner -tool=memcheck --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no
+        run: valgrind '${{ github.workspace }}/cmake-build-x64-debug/CUnitRunner' -tool=memcheck --leak-check=full --leak-resolution=med --track-origins=yes --vgdb=no
