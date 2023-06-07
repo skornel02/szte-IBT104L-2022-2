@@ -25,7 +25,7 @@ void print_char(char c);
  * @param nyugta A nyugta
  * @author Vass Kinga
  */
-void print_nyugta(int maxWidth, NYUGTA nyugta);
+void print_nyugta(int maxWidth, NYUGTA* nyugta);
 
 /**
  * Megszámolja a számjegyek számát

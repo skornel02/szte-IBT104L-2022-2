@@ -21,5 +21,7 @@ typedef enum {
     NEV,
     DB,
     AR,
-    ATMENET
+    MENTES,
+    ATMENET,
+    KOVETKEZO
 } BEOLVASAS_ALLAPOT;

@@ -12,9 +12,9 @@ static void print_tetelek(FILE* fp, int maxWidth, int tetelAmount,
 static void print_total(FILE* fp, int maxWidth, OSSZESITES* osszesites);
 int getNumbersLength(long int number);
 
-void print_nyugta(int maxWidth, NYUGTA nyugta) {
+void print_nyugta(int maxWidth, NYUGTA* nyugta) {
     char filename[30];
-    sprintf(filename, "%d.txt", nyugta.sorszam);
+    sprintf(filename, "%d.txt", nyugta->sorszam);
 
     FILE* fp = fopen(filename, "w");
 
@@ -23,13 +23,13 @@ void print_nyugta(int maxWidth, NYUGTA nyugta) {
         return;
     }
 
-    print_title(fp, maxWidth, nyugta.sorszam);
+    print_title(fp, maxWidth, nyugta->sorszam);
 
     print_separator(fp, maxWidth);
 
-    print_tetelek(fp, maxWidth, nyugta.tetelCount, nyugta.tetelek);
+    print_tetelek(fp, maxWidth, nyugta->tetelCount, nyugta->tetelek);
 
-    print_total(fp, maxWidth, nyugta.osszesites);
+    print_total(fp, maxWidth, nyugta->osszesites);
 
     print_separator(fp, maxWidth);
 
