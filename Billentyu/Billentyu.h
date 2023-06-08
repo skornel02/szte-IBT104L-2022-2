@@ -1,16 +1,14 @@
 #pragma once
 
-#include "CommonTypes.h"
+#include "Common.h"
 
 /**
- * @deprecated
+ * Beolvas egy karaktert.
+ *
+ * @return egy karakter.
+ * @author Horváth Gergely
  */
 char read_char();
-
-/**
- * @deprecated
- */
-char test_char();
 
 /**
  * Beolvassa a tétel nevét.

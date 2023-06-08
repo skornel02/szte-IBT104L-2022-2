@@ -1,5 +1,5 @@
-#include "CommonTypes.h"
 #include "Nyomtato.h"
+#include "Common.h"
 
 #include <CUnit/CUnit.h>
 #include <malloc.h>
@@ -23,7 +23,7 @@ static void test_print_nyugta() {
         nyugta.osszesites = malloc(sizeof(OSSZESITES));
         nyugta.osszesites->f_ar = 100;
 
-        print_nyugta(width, nyugta);
+        print_nyugta(width, &nyugta);
 
         free(nyugta.tetelek[0]);
         free(nyugta.tetelek[1]);
