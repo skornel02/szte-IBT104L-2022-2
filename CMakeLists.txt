@@ -14,7 +14,7 @@ target_link_libraries(Billentyu Common)
 target_link_libraries(Nyomtato Common)
 target_link_libraries(Kaszas Common Billentyu Nyomtato)
 
-add_executable(CUnitRunner utest.c)
+add_executable(CUnitRunner utest.c Kaszas/Kaszas.c Kaszas/KaszasTest.c)
 target_link_libraries(CUnitRunner cunit Common Billentyu Nyomtato)
 add_test(NAME CUnitRunner
         COMMAND CUnitRunner)
