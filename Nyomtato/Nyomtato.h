@@ -36,3 +36,23 @@ static void print_separator(FILE* fp, int maxWidth);
 static void print_tetelek(FILE* fp, int maxWidth, int tetelAmount,
                           PSZ_TETEL** tetelek);
 static void print_total(FILE* fp, int maxWidth, OSSZESITES* osszesites);
+
+/**
+ * Feltölti a fájlt egy adott karakterrel.
+ *
+ * @param fp A fájl
+ * @param padding Mennyi karakterrel töltsük fel
+ * @param character Milyen karakterrel töltsük fel
+ */
+#define PAD_FILE_WITH_CHAR(fp, padding, character) \
+    for (int i = 0; i < (padding); i++) { \
+        fprintf(fp, "%c", character); \
+    }
+
+/**
+ * Kitölti a fájlt üres karakterrel.
+ *
+ * @param fp A fájl
+ * @param padding Hány karakterrel töltsük ki
+ */
+#define PAD_FILE(fp, padding) PAD_FILE_WITH_CHAR(fp, padding, ' ')
