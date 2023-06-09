@@ -1,1 +1,1 @@
-﻿add_executable (Kaszas "Kaszas.c")
+﻿add_executable (Kaszas "Kaszas.c" Kaszas.h)
