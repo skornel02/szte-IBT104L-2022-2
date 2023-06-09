@@ -6,9 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define DEBUG
-
-int main(int argc, char* argv[]) {
+int program(int argc, char* argv[]) {
     if (argc < 2) {
         printf("Légyszíves adj meg egy maximum szélességet a nyomtatónak! pl.: "
                "'./%s 50'\n",
@@ -163,7 +161,9 @@ int main(int argc, char* argv[]) {
 #ifdef DEBUG
                     printf("DEBUG: EXITING");
 #endif
-                    exit(0);
+                    free_nyugta_members(&nyugta);
+                    free(tetel);
+                    return 0;
                 }
             }
         }
