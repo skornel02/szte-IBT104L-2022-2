@@ -1,7 +1,3 @@
-//
-// Created by Kornel on 6/7/2023.
-//
-
 #include <CUnit/Basic.h>
 #include <CUnit/CUnit.h>
 #include "NyomtatoTest.h"
@@ -13,6 +9,14 @@ CU_SuiteInfo pnm_suites[] = {
         CU_SUITE_INFO_NULL
 };
 
+/**
+ * Ez a fő program, ami a teszteket futtatja.
+ * <br>
+ * A tesztek futtathatóak kézzel is (preferált), vagy
+ * lehetőség van a `make test` paranccsal is futtatni.
+ *
+ * @author Stefán Kornél
+ */
 int main() {
     if (CU_initialize_registry() != CUE_SUCCESS) {
         return -1;
@@ -20,8 +24,13 @@ int main() {
     if (CU_register_suites(pnm_suites) != CUE_SUCCESS) {
         return -1;
     };
+#ifdef DEBUG
+    CU_basic_set_mode(CU_BRM_VERBOSE);
+#else
     CU_basic_set_mode(CU_BRM_NORMAL);
+#endif
     CU_basic_run_tests();
+    unsigned int errorCount =  CU_get_number_of_failures();
     CU_cleanup_registry();
-    return 0;
+    return errorCount == 0 ? 0 : -1;
 }

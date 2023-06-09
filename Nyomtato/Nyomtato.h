@@ -35,7 +35,7 @@ static void print_title(FILE* fp, int maxWidth, int sorszam);
 static void print_separator(FILE* fp, int maxWidth);
 static void print_tetelek(FILE* fp, int maxWidth, int tetelAmount,
                           PSZ_TETEL** tetelek);
-static void print_total(FILE* fp, int maxWidth, OSSZESITES* osszesites);
+static void print_total(FILE* fp, int maxWidth, long int osszesites);
 
 /**
  * Feltölti a fájlt egy adott karakterrel.

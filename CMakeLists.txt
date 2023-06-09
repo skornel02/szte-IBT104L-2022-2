@@ -2,7 +2,7 @@
 
 project ("kasszas-projekt" C)
 
-include(CTest)
+enable_testing()
 
 add_subdirectory ("Common")
 add_subdirectory ("Billentyu")

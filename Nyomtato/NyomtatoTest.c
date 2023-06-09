@@ -4,6 +4,14 @@
 #include <CUnit/CUnit.h>
 #include <malloc.h>
 
+#define REALISTIC_MIN_WIDTH 12
+
+/**
+ * Teszteljük, hogy a nyugta fájlok tényleg létrejönnek-e.
+ * <br>
+ * Továbbá azt, hogy egy realisztikus méret esetén a nyugta
+ * fájlokban lévő oszlopok száma megfelelő-e.
+ */
 static void test_print_nyugta() {
     for (int width = 1; width < 25 ; width++) {
         NYUGTA nyugta;
@@ -20,20 +28,25 @@ static void test_print_nyugta() {
         nyugta.tetelek[1]->f_db = 2;
         nyugta.tetelek[1]->f_ar = 50;
 
-        nyugta.osszesites = malloc(sizeof(OSSZESITES));
-        nyugta.osszesites->f_ar = 100;
+        nyugta.osszesites = 100;
 
         print_nyugta(width, &nyugta);
 
         free(nyugta.tetelek[0]);
         free(nyugta.tetelek[1]);
         free(nyugta.tetelek);
-        free(nyugta.osszesites);
 
         char filename[30];
         sprintf(filename, "%d.txt", nyugta.sorszam);
         FILE *fp = fopen(filename, "r");
         CU_ASSERT_PTR_NOT_NULL(fp);
+
+        if (REALISTIC_MIN_WIDTH <= width) {
+            char line[100];
+            while (fgets(line, 100, fp)) {
+                CU_ASSERT_EQUAL_FATAL(strlen(line), width + 2)
+            }
+        }
     }
 }
 

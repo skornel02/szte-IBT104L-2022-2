@@ -40,13 +40,12 @@ static void test_calculate_osszesites() {
     tetelek[0] = tetel1;
     tetelek[1] = tetel2;
 
-    OSSZESITES *osszesites = calculate_osszesites(tetelek, 2);
-    CU_ASSERT_EQUAL(osszesites->f_ar, ar1 + ar2);
+    long int osszesites = calculate_osszesites(tetelek, 2);
+    CU_ASSERT_EQUAL(osszesites, ar1 + ar2);
 
     free(tetelek);
     free(tetel1);
     free(tetel2);
-    free(osszesites);
 }
 
 static void test_free_nyugta() {

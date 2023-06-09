@@ -7,14 +7,10 @@ typedef struct {
 } PSZ_TETEL;
 
 typedef struct {
-    long int f_ar;
-} OSSZESITES;
-
-typedef struct {
     int sorszam;
     PSZ_TETEL** tetelek;
     int tetelCount;
-    OSSZESITES* osszesites;
+    long int osszesites;
 } NYUGTA;
 
 /**
@@ -51,7 +47,7 @@ typedef enum {
  * @return Az összegzés
  * @author Stefán Kornél
  */
-OSSZESITES *calculate_osszesites(PSZ_TETEL** tetelek, int tetelCount);
+long int calculate_osszesites(PSZ_TETEL** tetelek, int tetelCount);
 
 /**
  * Felszabadítja a nyugta tömb értékeit biztonságosan.
