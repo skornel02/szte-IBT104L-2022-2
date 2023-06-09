@@ -29,30 +29,24 @@ void print_nyugta(int maxWidth, NYUGTA* nyugta) {
 static void print_title(FILE* fp, int maxWidth, int sorszam) {
     int sorszam_length = getNumbersLength(sorszam);
     int padding = (maxWidth - sorszam_length) / 2;
-    for (int i = 0; i < padding; i++) {
-        fprintf(fp, " ");
-    }
+    PAD_FILE(fp, padding)
     fprintf(fp, "%d", sorszam);
     int remaining_padding = maxWidth - padding - sorszam_length;
-    for (int i = 0; i < remaining_padding; i++) {
-        fprintf(fp, " ");
-    }
+    PAD_FILE(fp, remaining_padding)
     fprintf(fp, "|\n");
 }
 
 static void print_separator(FILE* fp, int maxWidth) {
-    for (int i = 0; i < maxWidth; i++) {
-        fprintf(fp, "-");
-    }
+    PAD_FILE_WITH_CHAR(fp, maxWidth, '-')
     fprintf(fp, "|\n");
 }
 
 static void print_tetelek(FILE* fp, int maxWidth, int tetelAmount,
                           PSZ_TETEL** tetelek) {
-    for (int i = 0; i < tetelAmount; i++) {
-        char* item_name = tetelek[i]->f_nev;
-        int item_quantity = tetelek[i]->f_db;
-        long int item_price = tetelek[i]->f_ar;
+    for (int tetelIndex = 0; tetelIndex < tetelAmount; tetelIndex++) {
+        char* item_name = tetelek[tetelIndex]->f_nev;
+        int item_quantity = tetelek[tetelIndex]->f_db;
+        long int item_price = tetelek[tetelIndex]->f_ar;
 
         int item_name_length = strlen(item_name);
         int item_quantity_length = getNumbersLength(item_quantity);
@@ -84,21 +78,15 @@ static void print_tetelek(FILE* fp, int maxWidth, int tetelAmount,
         }
 
         if (space_remaining < item_price_length) {
-            for (int j = 0; j < space_remaining; j++) {
-                fprintf(fp, " ");
-            }
+            PAD_FILE(fp, space_remaining)
             fprintf(fp, "|\n");
 
             int padding = (maxWidth - item_price_length);
-            for (int j = 0; j < padding; j++) {
-                fprintf(fp, " ");
-            }
+            PAD_FILE(fp, padding)
             fprintf(fp, "%s|\n", item_price_text);
         } else {
             int padding = (space_remaining - item_price_length);
-            for (int j = 0; j < padding; j++) {
-                fprintf(fp, " ");
-            }
+            PAD_FILE(fp, padding)
             fprintf(fp, "%s|\n", item_price_text);
         }
 
@@ -106,24 +94,18 @@ static void print_tetelek(FILE* fp, int maxWidth, int tetelAmount,
     }
 }
 
-void print_total(FILE* fp, int maxWidth, OSSZESITES* osszesites) {
-    int total_length = getNumbersLength(osszesites->f_ar) + 3;
+void print_total(FILE* fp, int maxWidth, long int osszesites) {
+    int total_length = getNumbersLength(osszesites) + 3;
     int padding = (maxWidth - total_length);
     int middle_padding = padding - 6;
 
-    for (int i = 0; i < padding; i++) {
-        fprintf(fp, " ");
-    }
-    for (int i = 0; i < total_length; i++) {
-        fprintf(fp, "-");
-    }
+    PAD_FILE(fp, padding)
+    PAD_FILE_WITH_CHAR(fp, total_length, '-')
     fprintf(fp, "|\n");
 
     fprintf(fp, "Total:");
-    for (int i = 0; i < middle_padding; i++) {
-        fprintf(fp, " ");
-    }
-    fprintf(fp, "%ld Ft|\n", osszesites->f_ar);
+    PAD_FILE(fp, middle_padding)
+    fprintf(fp, "%ld Ft|\n", osszesites);
 }
 
 int getNumbersLength(long int number) {

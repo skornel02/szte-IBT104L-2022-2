@@ -4,7 +4,8 @@
 
 char read_char() {
     char c;
-    scanf("%c", &c);
+    scanf(" %c", &c);
+    getchar();
     return c;
 }
 
