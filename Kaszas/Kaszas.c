@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define DEBUG
+
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         printf("Légyszíves adj meg egy maximum szélességet a nyomtatónak! pl.: "
@@ -34,6 +36,9 @@ int main(int argc, char* argv[]) {
 
     int nyugtaCount = 1;
     BEOLVASAS_ALLAPOT allapot = NEV;
+#ifdef DEBUG
+    printf("DEBUG: ALLAPOT: %d\n", allapot);
+#endif
 
     // Main loop. No exit condition, because we want to run foreveeeeeeeeer.
     for (;;) {
@@ -41,12 +46,16 @@ int main(int argc, char* argv[]) {
         nyugta.sorszam = nyugtaCount;
         nyugta.tetelCount = 0;
         nyugta.tetelek = NULL;
-        nyugta.osszesites = NULL;
+        nyugta.osszesites = 0;
 
         PSZ_TETEL* tetel = malloc(sizeof(PSZ_TETEL));
         tetel->f_nev = NULL;
         tetel->f_db = 0;
         tetel->f_ar = 0;
+
+#ifdef DEBUG
+        printf("DEBUG: NYUGTA LETREHOZVA SORSZAM: %d\n", nyugta.sorszam);
+#endif
 
         while (allapot != KOVETKEZO) {
             switch (allapot) {
@@ -64,16 +73,28 @@ int main(int argc, char* argv[]) {
 
                 tetel->f_nev = read_tetel_nev();
                 allapot = DB;
+#ifdef DEBUG
+                printf("DEBUG: TETEL NEV: %s\n", tetel->f_nev);
+                printf("DEBUG: ALLAPOT: %d\n", allapot);
+#endif
                 break;
             case DB:
                 printf("Kérem a darabszámot: ");
                 tetel->f_db = read_tetel_db();
                 allapot = AR;
+#ifdef DEBUG
+                printf("DEBUG: TETEL DB: %d\n", tetel->f_db);
+                printf("DEBUG: ALLAPOT: %d\n", allapot);
+#endif
                 break;
             case AR:
                 printf("Kérem az árat: ");
                 tetel->f_ar = read_tetel_ar();
                 allapot = MENTES;
+#ifdef DEBUG
+                printf("DEBUG: TETEL AR: %ld\n", tetel->f_ar);
+                printf("DEBUG: ALLAPOT: %d\n", allapot);
+#endif
                 break;
             case MENTES:
                 print_save_prompt(tetel);
@@ -88,37 +109,60 @@ int main(int argc, char* argv[]) {
                     tetel->f_ar = 0;
                 }
 
-                if (nyugta.osszesites != NULL) {
-                    free(nyugta.osszesites);
-                }
                 nyugta.osszesites =
                     calculate_osszesites(nyugta.tetelek, nyugta.tetelCount);
 
+#ifdef DEBUG
+                printf("DEBUG: NEW OSSZITES: %ld\n", nyugta.osszesites);
+#endif
+
                 allapot = ATMENET;
+#ifdef DEBUG
+                printf("DEBUG: ALLAPOT: %d\n", allapot);
+#endif
             case ATMENET:
                 print_next_action();
 
-                char inputAtmenetChar = '\0';
+                char inputAtmenetChar = '?';
+                int tries = 0;
                 while (inputAtmenetChar != '1' && inputAtmenetChar != '2' &&
                        inputAtmenetChar != '3' && inputAtmenetChar != '4') {
-                    if (inputAtmenetChar != '\0') {
+                    if (tries++ > 0) {
                         printf("Kérem a menüpont számai közül válasszon!\n");
+#ifdef DEBUG
+                        printf("DEBUG: INVALID MENU INPUT!");
+#endif
                     }
                     inputAtmenetChar = read_char();
                 }
+#ifdef DEBUG
+                printf("DEBUG: MENU INPUT VALUE: %c\n", inputAtmenetChar);
+#endif
 
                 if (inputAtmenetChar == '1') {
                     allapot = NEV;
+#ifdef DEBUG
+                    printf("DEBUG: ALLAPOT: %d\n", allapot);
+#endif
                     break;
                 } else if (inputAtmenetChar == '2') {
                     print_nyugta(maxWidth, &nyugta);
                     allapot = ATMENET;
+#ifdef DEBUG
+                    printf("DEBUG: ALLAPOT: %d\n", allapot);
+#endif
                     break;
                 } else if (inputAtmenetChar == '3') {
                     allapot = KOVETKEZO;
+#ifdef DEBUG
+                    printf("DEBUG: ALLAPOT: %d\n", allapot);
+#endif
                     break;
                 } else {
                     print_goodbye();
+#ifdef DEBUG
+                    printf("DEBUG: EXITING");
+#endif
                     exit(0);
                 }
             }
@@ -129,6 +173,10 @@ int main(int argc, char* argv[]) {
         allapot = NEV;
         free_nyugta_members(&nyugta);
         free(tetel);
+#ifdef DEBUG
+        printf("DEBUG: ALLAPOT: %d\n", allapot);
+        printf("DEBUG: FREEING OLD NYUGTA");
+#endif
     }
 }
 
@@ -153,13 +201,21 @@ static void print_save_prompt(PSZ_TETEL* tetel) {
 }
 
 static int input_should_save() {
-    char inputSaveChar = '\0';
+    char inputSaveChar = '?';
+    int tries = 0;
     while (inputSaveChar != 'i' && inputSaveChar != 'N') {
-        if (inputSaveChar != '\0') {
+        if (tries++ > 0) {
             printf("Kérem i vagy N betűt adjon meg!\n");
+#ifdef DEBUG
+            printf("DEBUG: SAVE INPUT INVALID VALUE!\n");
+#endif
         }
         inputSaveChar = read_char();
     }
+
+#ifdef DEBUG
+    printf("DEBUG: SAVE INPUT VALUE: %c\n", inputSaveChar);
+#endif
 
     return inputSaveChar == 'i';
 }

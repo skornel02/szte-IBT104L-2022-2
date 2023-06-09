@@ -92,8 +92,8 @@ static void print_tetelek(FILE* fp, int maxWidth, int tetelAmount,
     }
 }
 
-void print_total(FILE* fp, int maxWidth, OSSZESITES* osszesites) {
-    int total_length = getNumbersLength(osszesites->f_ar) + 3;
+void print_total(FILE* fp, int maxWidth, long int osszesites) {
+    int total_length = getNumbersLength(osszesites) + 3;
     int padding = (maxWidth - total_length);
     int middle_padding = padding - 6;
 
@@ -103,7 +103,7 @@ void print_total(FILE* fp, int maxWidth, OSSZESITES* osszesites) {
 
     fprintf(fp, "Total:");
     PAD_FILE(fp, middle_padding)
-    fprintf(fp, "%ld Ft|\n", osszesites->f_ar);
+    fprintf(fp, "%ld Ft|\n", osszesites);
 }
 
 int getNumbersLength(long int number) {
