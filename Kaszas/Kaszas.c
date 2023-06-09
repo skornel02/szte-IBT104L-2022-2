@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
                                 "kódrészlet!\n");
                 return 1;
             case NEV:
-                printf("Kérem a tétel nevét: ");
+                printf("Kérem a tétel nevét:\n");
 
                 // Remove the old name if it exists
                 if (tetel->f_nev != NULL) {
@@ -66,12 +66,12 @@ int main(int argc, char* argv[]) {
                 allapot = DB;
                 break;
             case DB:
-                printf("Kérem a darabszámot: ");
+                printf("Kérem a darabszámot:\n");
                 tetel->f_db = read_tetel_db();
                 allapot = AR;
                 break;
             case AR:
-                printf("Kérem az árat: ");
+                printf("Kérem az árat:\n");
                 tetel->f_ar = read_tetel_ar();
                 allapot = MENTES;
                 break;
@@ -129,6 +129,8 @@ int main(int argc, char* argv[]) {
         allapot = NEV;
         free_nyugta_members(&nyugta);
         free(tetel);
+
+        test_read
     }
 }
 
@@ -156,6 +158,7 @@ static int input_should_save() {
     char inputSaveChar = '\0';
     while (inputSaveChar != 'i' && inputSaveChar != 'N') {
         if (inputSaveChar != '\0') {
+            // TODO: convert input to lowercase
             printf("Kérem i vagy N betűt adjon meg!\n");
         }
         inputSaveChar = read_char();

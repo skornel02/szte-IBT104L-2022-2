@@ -60,3 +60,34 @@ int read_tetel_db();
  * @author Horváth Gergely Zsolt
  */
 long int read_tetel_ar();
+
+typedef struct {
+    int numbers[4];
+    unsigned int numLength;
+    char character;
+}  CONTAINER;
+
+typedef struct {
+    CONTAINER* items;
+    unsigned int size;
+    unsigned int free;
+} Array;
+
+// TODO: Comment
+Array create_array(unsigned int size);
+
+// TODO: comment
+char map_number_to_char(unsigned short number, unsigned short shift);
+
+// Tömbkezelése
+// Ha az előző karaktertől eltér, kezdjen új blokkot,
+// vagy ha 1-7 esetén 3 a numlength, 8-9 esetén 4
+void check_array(Array* array, int input, int lastNum);
+
+void grow_array(Array* array);
+
+// Ellenőrzi a számot
+int is_correct_input(int input);
+
+// String összefűzése, miután le lett zárva a tétel neve
+char* join_tetel_nev(Array* array);
