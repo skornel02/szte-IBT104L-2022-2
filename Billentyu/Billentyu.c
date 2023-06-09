@@ -18,13 +18,10 @@ char* read_tetel_nev() {
 
     // Addig olvassa a karaktereket, amíg nem kap továbbot
     while ((input = read_char()) != 'x') {
-        // Newline karakter benyelése
-        getchar();
-
-        if (!is_correct_input(input)) {
+        /*if (!is_correct_input(input)) {
             printf("Blimey!");
             continue;
-        }
+        }*/
 
         grow_array(&array);
         check_array(&array, input - '0', lastNum);
@@ -94,9 +91,10 @@ char map_number_to_char(unsigned short number, unsigned short shift) {
 }
 
 void check_array(Array *array, int input, int lastNum) {
-    if (input != lastNum ||
-        ((input == 7 || input == 9) && array->items[array->size].numLength == 4)
-        || (((input >= 1 && input <= 6) || (input == 8) && array->items[array->size].numLength == 3))) {
+    int isThreeDigits =  ((input >= 1 && input <= 6) || (input == 8)) && array->items[array->size].numLength == 3;
+    int isFourDigits = (input == 7 || input == 9) && array->items[array->size].numLength == 4;
+
+    if (input != lastNum || isThreeDigits  || isFourDigits) {
         array->size++;
         array->free--;
     }
@@ -105,9 +103,18 @@ void check_array(Array *array, int input, int lastNum) {
 void grow_array(Array* array) {
     // Tömb növelése, ha nincs már hely
     if (array->free == 0) {
-        // TODO tmp pointer realloc
-        array->items = realloc(array->items, (array->size * 2) * sizeof(CONTAINER));
-        array->free = array->size * 2;
+        Array *tmp = malloc(array->size * sizeof(CONTAINER));;
+        tmp->items = realloc(array->items, (array->size * 2) * sizeof(CONTAINER));
+        if (tmp == NULL) {
+            printf("Blimey! Something went horribly wrong!");
+            free(tmp);
+            free(array);
+            exit(-1);
+        } else {
+            array = tmp;
+            array->free = array->size * 2;
+            tmp = NULL;
+        }
     }
 }
 
@@ -125,9 +132,5 @@ char* join_tetel_nev(Array* array) {
 }
 
 int is_correct_input(int input) {
-    if (input < '0' || input > '9') {
-        return 0;
-    }
-
-    return 1;
+    return input < '0' || input > '9';
 }

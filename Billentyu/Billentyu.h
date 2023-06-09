@@ -69,8 +69,8 @@ typedef struct {
 
 typedef struct {
     CONTAINER* items;
-    unsigned int size;
-    unsigned int free;
+    int size;
+    int free;
 } Array;
 
 // TODO: Comment
