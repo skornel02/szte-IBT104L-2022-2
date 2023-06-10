@@ -74,7 +74,7 @@ typedef struct {
 } Array;
 
 // TODO: Comment
-Array create_array(unsigned int size);
+Array create_array(int size);
 
 // TODO: comment
 char map_number_to_char(unsigned short number, unsigned short shift);
@@ -84,10 +84,11 @@ char map_number_to_char(unsigned short number, unsigned short shift);
 // vagy ha 1-7 esetén 3 a numlength, 8-9 esetén 4
 void check_array(Array* array, int input, int lastNum);
 
+// Tömb növelése, ha nincs már hely
 void grow_array(Array* array);
 
 // Ellenőrzi a számot
-int is_correct_input(int input);
+int is_correct_input(char input);
 
 // String összefűzése, miután le lett zárva a tétel neve
 char* join_tetel_nev(Array* array);

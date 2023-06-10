@@ -10,18 +10,21 @@ char read_char() {
 }
 
 char* read_tetel_nev() {
-    // Ebben van tárolva az összes input
-    Array array = create_array(3);
+    Array array = create_array(10);
 
     char input;
     int lastNum = 0;
 
-    // Addig olvassa a karaktereket, amíg nem kap továbbot
-    while ((input = read_char()) != 'x') {
-        /*if (!is_correct_input(input)) {
-            printf("Blimey!");
+    while ((input = read_char()) != 'x' || (input == 'x' && array.size == -1)) {
+        if (input == 'x'  && array.size == -1) {
+            printf("The name cannot be empty!\n");
             continue;
-        }*/
+        }
+
+        if (!is_correct_input(input)) {
+            printf("Blimey! It seems we may have received a faulty input: %c - kindly try one of the inputs indicated on the screen!\n", input);
+            continue;
+        }
 
         grow_array(&array);
         check_array(&array, input - '0', lastNum);
@@ -47,7 +50,9 @@ char* read_tetel_nev() {
         // TODO: Kiírni az átváltott összes karaktert
     }
 
-    return join_tetel_nev(&array);
+    char* tetelNev = array.size >= 0 ? join_tetel_nev(&array) : "";
+
+    return tetelNev;
 }
 
 int read_tetel_db() {
@@ -64,7 +69,7 @@ long int read_tetel_ar() {
     return tetel_ar;
 }
 
-Array create_array(unsigned int size) {
+Array create_array(int size) {
     Array array;
     array.items = malloc(size * sizeof(CONTAINER));
     array.size = -1;
@@ -91,8 +96,8 @@ char map_number_to_char(unsigned short number, unsigned short shift) {
 }
 
 void check_array(Array *array, int input, int lastNum) {
-    int isThreeDigits =  ((input >= 1 && input <= 6) || (input == 8)) && array->items[array->size].numLength == 3;
-    int isFourDigits = (input == 7 || input == 9) && array->items[array->size].numLength == 4;
+    int isThreeDigits =  ((input >= 1 && input <= 6) || (input == 8));// && array->items[array->size].numLength == 3;
+    int isFourDigits = (input == 7 || input == 9);// && array->items[array->size].numLength == 4;
 
     if (input != lastNum || isThreeDigits  || isFourDigits) {
         array->size++;
@@ -101,9 +106,8 @@ void check_array(Array *array, int input, int lastNum) {
 }
 
 void grow_array(Array* array) {
-    // Tömb növelése, ha nincs már hely
     if (array->free == 0) {
-        Array *tmp = malloc(array->size * sizeof(CONTAINER));;
+        Array *tmp = malloc(array->size * sizeof(CONTAINER));
         tmp->items = realloc(array->items, (array->size * 2) * sizeof(CONTAINER));
         if (tmp == NULL) {
             printf("Blimey! Something went horribly wrong!");
@@ -131,6 +135,6 @@ char* join_tetel_nev(Array* array) {
     return tetel_nev;
 }
 
-int is_correct_input(int input) {
-    return input < '0' || input > '9';
+int is_correct_input(char input) {
+    return input >= '1' && input <= '9';
 }
