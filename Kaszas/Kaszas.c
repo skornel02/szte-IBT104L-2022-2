@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
                 break;
             case DB:
                 printf("Kérem a darabszámot:\n");
-                tetel->f_db = read_tetel_db();
+                tetel->f_db = read_tetel_num();
                 allapot = AR;
 #ifdef DEBUG
                 printf("DEBUG: TETEL DB: %d\n", tetel->f_db);
@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) {
                 break;
             case AR:
                 printf("Kérem az árat:\n");
-                tetel->f_ar = read_tetel_ar();
+                tetel->f_ar = read_tetel_num();
                 allapot = MENTES;
 #ifdef DEBUG
                 printf("DEBUG: TETEL AR: %ld\n", tetel->f_ar);

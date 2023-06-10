@@ -56,28 +56,16 @@ char* read_tetel_nev() {
     return tetelNev;
 }
 
-int read_tetel_db() {
+int read_tetel_num() {
     int tetel_db = 0;
 
     int ok;
     do {
-        tetel_db = scan_db();
-        ok = check_db(tetel_db);
+        tetel_db = scan_num();
+        ok = check_num(tetel_db);
     } while (!ok);
 
     return tetel_db;
-}
-
-long int read_tetel_ar() {
-    long int tetel_ar = 0;
-
-    int ok;
-    do {
-        tetel_ar = scan_db();
-        ok = check_db(tetel_ar);
-    } while (!ok);
-
-    return tetel_ar;
 }
 
 Array create_array(int size) {
@@ -150,7 +138,7 @@ int is_correct_input(char input) {
     return input >= '1' && input <= '9';
 }
 
-long int scan_db() {
+long int scan_num() {
     char digits[10];
 
     scanf("%9s", digits);
@@ -197,7 +185,7 @@ long int scan_db() {
     return strtol(real, &ptr, 10);
 }
 
-int check_db(long int input) {
+int check_num(long int input) {
     if (input <= 0) {
         printf("We seem to be in a slight pickle here. The number kindly provided by You must be at least 1!\n");
         return 0;

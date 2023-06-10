@@ -3,6 +3,26 @@
 #include "Common.h"
 
 /**
+ * Struct, ami képes eltárolni az együtt kezelendő számjegyeket,
+ * illetve az általa tartalmazott számjegyek számát.
+ */
+typedef struct {
+    int numbers[4];
+    unsigned int numLength;
+    char character;
+}  CONTAINER;
+
+/**
+ * Tartalmaz egy tömböt, illetve a tartalmazott elemek számát
+ * és a szabad helyet is.
+ */
+typedef struct {
+    CONTAINER* items;
+    int size;
+    int free;
+} Array;
+
+/**
  * Beolvas egy karaktert.
  *
  * @return egy karakter.
@@ -28,71 +48,84 @@ char read_char();
 char* read_tetel_nev();
 
 /**
- * Beolvassa a tétel darabszámát.
+ * Beolvas egy a tételhez tartozó számot.
  * <br>
  * Ezt interaktívan a felhasználóval viszi végre.
  * <br>
  * Fontos:
  * <ul>
- * <li> A darabszám nem lehet negatív, sem nulla. </li>
- * <li> A maximum értéke 999.999.999; ennél nagyobb összeg estén a Ka$$za prémium verziója használatos. </li>
+ * <li> A szám nem lehet negatív, sem nulla. </li>
+ * <li> A maximum értéke 999.999.999; ennél nagyobb tételszám / ár estén a Ka$$za prémium verziója használatos. </li>
  * <li> A standard input / output feletti irányítást átveszi. </li>
  * </ul>
  *
  * @return Egy pozitív szám.
  * @author Horváth Gergely Zsolt
  */
-int read_tetel_db();
+int read_tetel_num();
 
 /**
- * Beolvassa a tétel fogyasztói árát.
- * <br>
- * Ezt interaktívan a felhasználóval viszi végre.
- * <br>
- * Fontos:
- * <ul>
- * <li> A fogyasztói ár nem lehet negatív, sem nulla. </li>
- * <li> A maximum értéke 999.999.999; ennél nagyobb összeg estén a Ka$$za prémium verziója használatos. </li>
- * <li> A standard input / output feletti irányítást átveszi. </li>
- * </ul>
- *
- * @return Egy pozitív (nagy) szám.
+ * Létrehoz egy a telefonbillentyűzet szerű bemenet tárolására alkalmas tömböt.
+ * @param size A tömb mérete.
+ * @return Egy adott hosszúságú tömb.
  * @author Horváth Gergely Zsolt
  */
-long int read_tetel_ar();
-
-typedef struct {
-    int numbers[4];
-    unsigned int numLength;
-    char character;
-}  CONTAINER;
-
-typedef struct {
-    CONTAINER* items;
-    int size;
-    int free;
-} Array;
-
-// TODO: Comment
 Array create_array(int size);
 
-// TODO: comment
+/**
+ * Számot karakterré konvertál.
+ * @param number Hanyas szám.
+ * @param shift Hány darab van megadva a számból.
+ * @return Az angol abc egy kisbetűje vagy szóköz.
+ * @author Horváth Gergely Zsolt
+ */
 char map_number_to_char(unsigned short number, unsigned short shift);
 
-// Tömbkezelése
-// Ha az előző karaktertől eltér, kezdjen új blokkot,
-// vagy ha 1-7 esetén 3 a numlength, 8-9 esetén 4
+/**
+ * Ez az eljárás teszi lehetővé, hogy három (7-9 esetén négy) szám egy karakternek számítson.
+ * @param array Az ellenőrizendő tömb.
+ * @param input A felhazsnáló által megadott bemenet.
+ * @param lastNum A legutóbbi bemenet.
+ * @author Horváth Gergely Zsolt
+ */
 void check_array(Array* array, int input, int lastNum);
 
 // Tömb növelése, ha nincs már hely
+/**
+ * A tömb megnövelése, ha nincs már benne hely.
+ * @param array A megnövelni kívánt tömb.
+ * @author Horváth Gergely Zsolt
+ */
 void grow_array(Array* array);
 
-// Ellenőrzi a számot
+/**
+ * Ellenőrzi, hogy a megadott feltételeknek eleget tesz-e a felhasználói bemenet.
+ * @param input Az ellenőrizendő szám.
+ * @return 0, ha helytelen a szám, 1 ha helyes.
+ * @author Horváth Gergely Zsolt
+ */
 int is_correct_input(char input);
 
 // String összefűzése, miután le lett zárva a tétel neve
+/**
+ * A lezárt tétel nevének összefűzése.
+ * @param array A tömb, ami a név karaktereit tárolja.
+ * @return Az összefűzött név.
+ * @author Horváth Gergely Zsolt
+ */
 char* join_tetel_nev(Array* array);
 
-int check_db(long int input);
+/**
+ * Ellenőrzi, hogy a megadott szám pozitív-e. Ha helytelen a szám, tájékoztatást ad.
+ * @param input Az ellenőrizendő szám.
+ * @return 0, ha nempozitív, 1 ha pozitív.
+ * @author Horváth Gergely Zsolt
+ */
+int check_num(long int input);
 
-long int scan_db();
+/**
+ * Beolvas egy pozitív egész számot.
+ * @return
+ * @author Horváth Gergely Zsolt
+ */
+long int scan_num();
