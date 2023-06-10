@@ -203,7 +203,6 @@ static void print_save_prompt(PSZ_TETEL* tetel) {
 static int input_should_save() {
     char inputSaveChar = '?';
     int tries = 0;
-    // TODO: convert input to lowercase
     while (inputSaveChar != 'i' && inputSaveChar != 'N') {
         if (tries++ > 0) {
             printf("Kérem i vagy N betűt adjon meg!\n");

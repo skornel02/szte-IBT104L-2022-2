@@ -1,6 +1,7 @@
 #include "Billentyu.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 char read_char() {
     char c;
@@ -56,16 +57,26 @@ char* read_tetel_nev() {
 }
 
 int read_tetel_db() {
-    int tetel_db;
-    printf("Kerem adja meg a tetel darabszamat:\n");
-    scanf("%d", &tetel_db);
+    int tetel_db = 0;
+
+    int ok;
+    do {
+        tetel_db = scan_db();
+        ok = check_db(tetel_db);
+    } while (!ok);
+
     return tetel_db;
 }
 
 long int read_tetel_ar() {
-    long int tetel_ar;
-    printf("Kerem adja meg a tetel arat:\n");
-    scanf("%ld", &tetel_ar);
+    long int tetel_ar = 0;
+
+    int ok;
+    do {
+        tetel_ar = scan_db();
+        ok = check_db(tetel_ar);
+    } while (!ok);
+
     return tetel_ar;
 }
 
@@ -96,8 +107,8 @@ char map_number_to_char(unsigned short number, unsigned short shift) {
 }
 
 void check_array(Array *array, int input, int lastNum) {
-    int isThreeDigits =  ((input >= 1 && input <= 6) || (input == 8));// && array->items[array->size].numLength == 3;
-    int isFourDigits = (input == 7 || input == 9);// && array->items[array->size].numLength == 4;
+    int isThreeDigits =  ((input >= 1 && input <= 6) || (input == 8)) && array->items[array->size].numLength == 3;
+    int isFourDigits = (input == 7 || input == 9) && array->items[array->size].numLength == 4;
 
     if (input != lastNum || isThreeDigits  || isFourDigits) {
         array->size++;
@@ -137,4 +148,60 @@ char* join_tetel_nev(Array* array) {
 
 int is_correct_input(char input) {
     return input >= '1' && input <= '9';
+}
+
+long int scan_db() {
+    char digits[10];
+
+    scanf("%9s", digits);
+
+    // Be nem olvasott karakterek eltakarítása stdin-ről
+    int x;
+    while((x = getchar()))
+    {
+        if(x == '\n')
+        {
+            break;
+        }
+    }
+
+    // Csak akkor fogadja el az inputot, nincs az elején se szöveg
+    int firstDigitIndex = -1;
+    for (int i = 0; i < 9; ++i) {
+        if (digits[i] >= '0' && digits[i] <= '9') {
+            firstDigitIndex = i;
+            break;
+        }
+    }
+
+    if (firstDigitIndex == -1 || firstDigitIndex > 0) {
+        return 0;
+    }
+
+    // Lapátoljunk össze egy számot a számjegyek alapján
+    int digitCount = 0;
+    for (int i = 0; i < 9; ++i) {
+        if (digits[i] >= '0' && digits[i] <= '9') {
+            digitCount++;
+        }
+    }
+
+    char real[digitCount+1];
+    for (int i = 0; i < digitCount; ++i) {
+        real[i] = digits[i];
+    }
+    real[digitCount] = '\0';
+
+    char *ptr;
+
+    return strtol(real, &ptr, 10);
+}
+
+int check_db(long int input) {
+    if (input <= 0) {
+        printf("We seem to be in a slight pickle here. The number kindly provided by You must be at least 1!\n");
+        return 0;
+    }
+
+    return 1;
 }

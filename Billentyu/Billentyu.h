@@ -35,7 +35,7 @@ char* read_tetel_nev();
  * Fontos:
  * <ul>
  * <li> A darabszám nem lehet negatív, sem nulla. </li>
- * <li> A maximum értéke a platform függő legnagyobb int érték. </li>
+ * <li> A maximum értéke 999.999.999; ennél nagyobb összeg estén a Ka$$za prémium verziója használatos. </li>
  * <li> A standard input / output feletti irányítást átveszi. </li>
  * </ul>
  *
@@ -52,7 +52,7 @@ int read_tetel_db();
  * Fontos:
  * <ul>
  * <li> A fogyasztói ár nem lehet negatív, sem nulla. </li>
- * <li> A maximum értéke a platform függő legnagyobb long int érték. </li>
+ * <li> A maximum értéke 999.999.999; ennél nagyobb összeg estén a Ka$$za prémium verziója használatos. </li>
  * <li> A standard input / output feletti irányítást átveszi. </li>
  * </ul>
  *
@@ -92,3 +92,7 @@ int is_correct_input(char input);
 
 // String összefűzése, miután le lett zárva a tétel neve
 char* join_tetel_nev(Array* array);
+
+int check_db(long int input);
+
+long int scan_db();
