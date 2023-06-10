@@ -88,7 +88,7 @@ char map_number_to_char(unsigned short number, unsigned short shift);
  * @param lastNum A legutóbbi bemenet.
  * @author Horváth Gergely Zsolt
  */
-void check_array(Array* array, int input, int lastNum);
+void check_array(Array *array, int input, int lastNum);
 
 // Tömb növelése, ha nincs már hely
 /**
@@ -96,7 +96,7 @@ void check_array(Array* array, int input, int lastNum);
  * @param array A megnövelni kívánt tömb.
  * @author Horváth Gergely Zsolt
  */
-void grow_array(Array* array);
+void grow_array(Array *array);
 
 /**
  * Ellenőrzi, hogy a megadott feltételeknek eleget tesz-e a felhasználói bemenet.
@@ -113,7 +113,7 @@ int is_correct_input(char input);
  * @return Az összefűzött név.
  * @author Horváth Gergely Zsolt
  */
-char* join_tetel_nev(Array* array);
+char* join_tetel_nev(Array *array);
 
 /**
  * Ellenőrzi, hogy a megadott szám pozitív-e. Ha helytelen a szám, tájékoztatást ad.
@@ -129,3 +129,23 @@ int check_num(long int input);
  * @author Horváth Gergely Zsolt
  */
 long int scan_num();
+
+/**
+ * Kiírja a megadott számokat a képernyőre.
+ * @param array A számokat tartalmazó tömb.
+ * @author Horváth Gergely Zsolt
+ */
+void print_numbers(Array *array);
+
+/**
+ * Kiírja a megadott karaktereket a képernyőre.
+ * @param array A karaktereket tartalmazó tömb.
+ * @author Horváth Gergely Zsolt
+ */
+void print_characters(Array *array);
+
+/**
+ * Kirajzol a képernyőre egy billenytűzetet.
+ * @author Horváth Gergely Zsolt
+ */
+void print_keyboard();

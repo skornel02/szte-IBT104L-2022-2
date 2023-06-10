@@ -1,7 +1,13 @@
 #include "Billentyu.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
+
+#ifdef _WIN32
+#include <conio.h>
+#else
+#include <stdio.h>
+#define clrscr() printf("\e[1;1H\e[2J")
+#endif
 
 char read_char() {
     char c;
@@ -16,6 +22,7 @@ char* read_tetel_nev() {
     char input;
     int lastNum = 0;
 
+    print_keyboard();
     while ((input = read_char()) != 'x' || (input == 'x' && array.size == -1)) {
         if (input == 'x'  && array.size == -1) {
             printf("The name cannot be empty!\n");
@@ -47,8 +54,10 @@ char* read_tetel_nev() {
         array.items[array.size].character = map_number_to_char(firstNum, numCount);
         array.items[array.size].numLength++;
 
-        // TODO: Kiírni a beolvasott összes számot
-        // TODO: Kiírni az átváltott összes karaktert
+        clrscr();
+        print_keyboard();
+        print_numbers(&array);
+        print_characters(&array);
     }
 
     char* tetelNev = array.size >= 0 ? join_tetel_nev(&array) : "";
@@ -126,7 +135,6 @@ char* join_tetel_nev(Array* array) {
 
     for (int i = 0; i < array->size + 1; ++i) {
         tetel_nev[i] = array->items[i].character;
-        printf("%c", tetel_nev[i]);
     }
 
     tetel_nev[array->size + 1] = '\0';
@@ -192,4 +200,39 @@ int check_num(long int input) {
     }
 
     return 1;
+}
+
+void print_numbers(Array *array) {
+    for (int i = 0; i < array->size + 1; ++i) {
+        for (int j = 0; j < array->items[i].numLength; ++j) {
+            printf("%d", array->items[i].numbers[j]);
+        }
+    }
+    printf("\n");
+}
+
+void print_characters(Array *array) {
+    for (int i = 0; i < array->size + 1; ++i) {
+        printf("%c", array->items[i].character);
+    }
+    printf("\n");
+}
+
+void print_keyboard() {
+    printf(",------,,------,,------,\n"
+           "|  ~1  ||  ~2  ||  ~3  |\n"
+           "| ~spc || ~abc || ~def |\n"
+           "'------''------''------'\n"
+           ",------,,------,,------,\n"
+           "|  ~4  ||  ~5  ||  ~6  |\n"
+           "| ~ghi || ~jkl || ~mno |\n"
+           "'------''------''------'\n"
+           ",------,,------,,------,\n"
+           "|  ~7  ||  ~8  ||  ~9  |\n"
+           "| pqrs || ~tuv || wxyz |\n"
+           "'------''------''------'\n"
+           "        ,------,\n"
+           "        |  ~0  |\n"
+           "        | done |\n"
+           "        '------'\n");
 }

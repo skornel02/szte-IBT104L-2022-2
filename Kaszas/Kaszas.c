@@ -10,7 +10,7 @@
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        printf("Légyszíves adj meg egy maximum szélességet a nyomtatónak! pl.: "
+        printf("Do be so kind as to specify the maximum width for the printer to use! Eg. "
                "'./%s 50'\n",
                argv[0]);
         return 1;
@@ -20,17 +20,17 @@ int main(int argc, char* argv[]) {
     long int number = strtol(argv[1], &endptr, 10);
 
     if (*endptr != '\0') {
-        fprintf(stderr, "A megadott paraméter szám nem helyes egész érték!\n");
+        fprintf(stderr, "The sepcified parameter is not a correct integer!\n");
         return 1;
     } else if (number < 10) {
         fprintf(
             stderr,
-            "A megadott paraméter túl kicsi (legalább 10 széles legyen)!\n");
+            "The specified width is not wide enough. It should be at least 10 characters long!\n");
         return 1;
     }
 
     int maxWidth = number > INT_MAX ? INT_MAX : (int)number;
-    printf("A beállított max szélesség: %d\n\n", maxWidth);
+    printf("The specified maximum width: %d\n\n", maxWidth);
 
     print_greeting();
 
@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
                                 "kódrészlet!\n");
                 return 1;
             case NEV:
-                printf("Kérem a tétel nevét:\n");
+                printf("Enter the name of the item:\n");
 
                 // Remove the old name if it exists
                 if (tetel->f_nev != NULL) {
@@ -79,7 +79,7 @@ int main(int argc, char* argv[]) {
 #endif
                 break;
             case DB:
-                printf("Kérem a darabszámot:\n");
+                printf("Enter the quantity of the item:\n");
                 tetel->f_db = read_tetel_num();
                 allapot = AR;
 #ifdef DEBUG
@@ -88,7 +88,7 @@ int main(int argc, char* argv[]) {
 #endif
                 break;
             case AR:
-                printf("Kérem az árat:\n");
+                printf("Enter the price of the item:\n");
                 tetel->f_ar = read_tetel_num();
                 allapot = MENTES;
 #ifdef DEBUG
@@ -128,7 +128,7 @@ int main(int argc, char* argv[]) {
                 while (inputAtmenetChar != '1' && inputAtmenetChar != '2' &&
                        inputAtmenetChar != '3' && inputAtmenetChar != '4') {
                     if (tries++ > 0) {
-                        printf("Kérem a menüpont számai közül válasszon!\n");
+                        printf("Please choose one of the above numbers!\n");
 #ifdef DEBUG
                         printf("DEBUG: INVALID MENU INPUT!");
 #endif
@@ -192,20 +192,20 @@ static void print_greeting() {
 }
 
 static void print_save_prompt(PSZ_TETEL* tetel) {
-    printf("A tétel neve: %s\n", tetel->f_nev);
-    printf("A darabszám: %d\n", tetel->f_db);
-    printf("Az ár: %ld\n", tetel->f_ar);
-    printf("Kérem ellenőrizze a fenti adatokat és válassza meg a "
-           "következő műveletet!\n");
-    printf("Szeretné menteni az adatokat? (i/N)\n");
+    printf("Name of the item: %s\n", tetel->f_nev);
+    printf("Quantity: %d\n", tetel->f_db);
+    printf("Price: %ld\n", tetel->f_ar);
+    printf("Please check the above data and choose "
+           "what to do next!\n");
+    printf("Would you like to save the data? (y/N)\n");
 }
 
 static int input_should_save() {
     char inputSaveChar = '?';
     int tries = 0;
-    while (inputSaveChar != 'i' && inputSaveChar != 'N') {
+    while (inputSaveChar != 'y' && inputSaveChar != 'N') {
         if (tries++ > 0) {
-            printf("Kérem i vagy N betűt adjon meg!\n");
+            printf("Enter either y or N!\n");
 #ifdef DEBUG
             printf("DEBUG: SAVE INPUT INVALID VALUE!\n");
 #endif
@@ -217,16 +217,16 @@ static int input_should_save() {
     printf("DEBUG: SAVE INPUT VALUE: %c\n", inputSaveChar);
 #endif
 
-    return inputSaveChar == 'i';
+    return inputSaveChar == 'y';
 }
 
 static void print_next_action() {
     printf("--------------------\n");
-    printf("Kérem válassza meg a következő műveletet!\n");
-    printf("1. Új érték felvitele\n");
-    printf("2. Nyugta nyomtatás \n");
-    printf("3. Új nyugta kezdés\n");
-    printf("4. Kilépés\n");
+    printf("What would you like to do next?\n");
+    printf("1. Add new item\n");
+    printf("2. Print \n");
+    printf("3. Start again\n");
+    printf("4. Exit\n");
 }
 
 static void print_goodbye() {

@@ -23,7 +23,7 @@ void print_nyugta(int maxWidth, NYUGTA* nyugta) {
 
     fclose(fp);
 
-    printf("%s %d.txt néven","Nyugta kinyomtatva", nyugta->sorszam);
+    printf("%s %s\n","Receipt printed:", filename);
 }
 
 static void print_title(FILE* fp, int maxWidth, int sorszam) {
