@@ -105,6 +105,8 @@ int program(int argc, char* argv[]) {
                     tetel->f_nev = NULL;
                     tetel->f_db = 0;
                     tetel->f_ar = 0;
+                } else {
+                    free(tetel->f_nev);
                 }
 
                 nyugta.osszesites =
@@ -225,7 +227,7 @@ static void print_next_action() {
     printf("What would you like to do next?\n");
     printf("1. Add new item\n");
     printf("2. Print \n");
-    printf("3. Restart\n");
+    printf("3. New\n");
     printf("4. Exit\n");
 }
 
