@@ -67,8 +67,8 @@ char* read_tetel_nev() {
     return tetelNev;
 }
 
-int read_tetel_num() {
-    int tetel_db = 0;
+long int read_tetel_num() {
+    long int tetel_db = 0;
 
     int ok;
     do {

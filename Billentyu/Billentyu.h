@@ -62,7 +62,7 @@ char* read_tetel_nev();
  * @return Egy pozitív szám.
  * @author Horváth Gergely Zsolt
  */
-int read_tetel_num();
+long int read_tetel_num();
 
 /**
  * Létrehoz egy a telefonbillentyűzet szerű bemenet tárolására alkalmas tömböt.
