@@ -35,7 +35,7 @@
  * @authors Stefán Kornél
  * @authors Vass Kinga
 */
-int main(int argc, char* argv[]);
+int program(int argc, char* argv[]);
 
 /**
  * Kiírunk egy kellemesen britt üdvözlő üzenetet.

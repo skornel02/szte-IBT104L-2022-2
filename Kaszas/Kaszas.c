@@ -6,9 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define DEBUG
-
-int main(int argc, char* argv[]) {
+int program(int argc, char* argv[]) {
     if (argc < 2) {
         printf("Do be so kind as to specify the maximum width for the printer to use! Eg. "
                "'./%s 50'\n",
@@ -167,7 +165,8 @@ int main(int argc, char* argv[]) {
                     printf("DEBUG: EXITING");
 #endif
                     free_nyugta_members(&nyugta);
-                    exit(0);
+                    free(tetel);
+                    return 0;
                 }
             }
         }

@@ -1,11 +1,13 @@
+#include "CommonTest.h"
+#include "NyomtatoTest.h"
+#include "Kaszas/KaszasTest.h"
 #include <CUnit/Basic.h>
 #include <CUnit/CUnit.h>
-#include "NyomtatoTest.h"
-#include "CommonTest.h"
 
 CU_SuiteInfo pnm_suites[] = {
         {"Nyomtato", NULL, NULL, NULL, NULL, nyomtato_tests},
         {"Common", NULL, NULL, NULL, NULL, common_tests},
+        {"Kaszas", NULL, NULL, NULL, NULL, kaszas_tests},
         CU_SUITE_INFO_NULL
 };
 
