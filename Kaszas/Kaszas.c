@@ -227,7 +227,7 @@ static void print_next_action() {
     printf("What would you like to do next?\n");
     printf("1. Add new item\n");
     printf("2. Print \n");
-    printf("3. Restart\n");
+    printf("3. New\n");
     printf("4. Exit\n");
 }
 
