@@ -111,7 +111,7 @@ void check_array(Array *array, int input, int lastNum) {
     int isThreeDigits =  ((input >= 1 && input <= 6) || (input == 8)) && array->items[array->size].numLength == 3;
     int isFourDigits = (input == 7 || input == 9) && array->items[array->size].numLength == 4;
 
-    if (input != lastNum || isThreeDigits  || isFourDigits) {
+    if (input != lastNum || isThreeDigits  || isFourDigits || input == 1) {
         array->size++;
         array->free--;
     }
