@@ -34,8 +34,8 @@ char* read_tetel_nev() {
             continue;
         }
 
-        grow_array(&array);
         check_array(&array, input - '0', lastNum);
+        grow_array(&array);
 
         unsigned int numLength = array.items[array.size].numLength;
         array.items[array.size].numbers[numLength] = input - '0';
@@ -82,13 +82,8 @@ int read_tetel_num() {
 Array create_array(int size) {
     Array array;
     array.items = malloc(size * sizeof(CONTAINER));
-    for (int i = 0; i < size; ++i) {
-        array.items[i].numLength = 0;
-        array.items[i].character = '\0';
-        for (int j = 0; j < 4; ++j) {
-            array.items[i].numbers[j] = 0;
-        }
-    }
+
+    initialize_array(&array, 0, size);
     array.size = 0;
     array.free = size;
 
@@ -124,18 +119,11 @@ void check_array(Array *array, int input, int lastNum) {
 
 void grow_array(Array* array) {
     if (array->free == 0) {
-        Array *tmp = malloc((array->size + 1) * sizeof(CONTAINER));
-        tmp->items = realloc(array->items, ((array->size + 1) * 2) * sizeof(CONTAINER));
-        if (tmp == NULL) {
-            printf("Blimey! Something went horribly wrong!");
-            free(tmp);
-            free(array);
-            exit(-1);
-        } else {
-            array = tmp;
-            array->free = array->size * 2;
-            tmp = NULL;
-        }
+        int newSize = (array->size + 1) * 2;
+        array->items = realloc(array->items, newSize * sizeof(CONTAINER));
+        array->free = array->size * 2;
+
+        initialize_array(array, array->size, newSize);
     }
 }
 
@@ -256,7 +244,15 @@ void print_keyboard() {
 }
 
 void free_array(Array *array) {
-    for (int i = 0; i < array->size; ++i) {
-        free(&array->items[i]);
+    free(array->items);
+}
+
+void initialize_array(Array *array, int start, int end) {
+    for (int i = start; i < end; ++i) {
+        array->items[i].numLength = 0;
+        array->items[i].character = '\0';
+        for (int j = 0; j < 4; ++j) {
+            array->items[i].numbers[j] = 0;
+        }
     }
 }

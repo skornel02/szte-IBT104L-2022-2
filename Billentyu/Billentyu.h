@@ -105,6 +105,14 @@ void grow_array(Array *array);
 void free_array(Array *array);
 
 /**
+ * Egy tömb kezdő értékekkel való feltöltése.
+ * @param array A feltölteni kívánt tömb.
+ * @param start Mettől töltse fel értékekkel.
+ * @param end Meddig töltse fel értékekkel.
+ */
+void initialize_array(Array *array, int start, int end);
+
+/**
  * Ellenőrzi, hogy a megadott feltételeknek eleget tesz-e a felhasználói bemenet.
  * @param input Az ellenőrizendő szám.
  * @return 0, ha helytelen a szám, 1 ha helyes.
