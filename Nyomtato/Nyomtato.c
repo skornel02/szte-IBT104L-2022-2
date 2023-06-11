@@ -22,6 +22,8 @@ void print_nyugta(int maxWidth, NYUGTA* nyugta) {
     print_separator(fp, maxWidth);
 
     fclose(fp);
+
+    printf("%s %s\n","Receipt printed:", filename);
 }
 
 static void print_title(FILE* fp, int maxWidth, int sorszam) {

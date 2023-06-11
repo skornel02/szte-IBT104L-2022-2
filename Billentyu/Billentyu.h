@@ -3,6 +3,26 @@
 #include "Common.h"
 
 /**
+ * Struct, ami képes eltárolni az együtt kezelendő számjegyeket,
+ * illetve az általa tartalmazott számjegyek számát.
+ */
+typedef struct {
+    int numbers[4];
+    unsigned int numLength;
+    char character;
+}  CONTAINER;
+
+/**
+ * Tartalmaz egy tömböt, illetve a tartalmazott elemek számát
+ * és a szabad helyet is.
+ */
+typedef struct {
+    CONTAINER* items;
+    int size;
+    int free;
+} Array;
+
+/**
  * Beolvas egy karaktert.
  *
  * @return egy karakter.
@@ -28,35 +48,135 @@ char read_char();
 char* read_tetel_nev();
 
 /**
- * Beolvassa a tétel darabszámát.
+ * Beolvas egy a tételhez tartozó számot.
  * <br>
  * Ezt interaktívan a felhasználóval viszi végre.
  * <br>
  * Fontos:
  * <ul>
- * <li> A darabszám nem lehet negatív, sem nulla. </li>
- * <li> A maximum értéke a platform függő legnagyobb int érték. </li>
+ * <li> A szám nem lehet negatív, sem nulla. </li>
+ * <li> A maximum értéke 999.999.999; ennél nagyobb tételszám / ár estén a Ka$$za prémium verziója használatos. </li>
  * <li> A standard input / output feletti irányítást átveszi. </li>
  * </ul>
  *
  * @return Egy pozitív szám.
  * @author Horváth Gergely Zsolt
  */
-int read_tetel_db();
+long int read_tetel_num();
 
 /**
- * Beolvassa a tétel fogyasztói árát.
- * <br>
- * Ezt interaktívan a felhasználóval viszi végre.
- * <br>
- * Fontos:
- * <ul>
- * <li> A fogyasztói ár nem lehet negatív, sem nulla. </li>
- * <li> A maximum értéke a platform függő legnagyobb long int érték. </li>
- * <li> A standard input / output feletti irányítást átveszi. </li>
- * </ul>
- *
- * @return Egy pozitív (nagy) szám.
+ * Létrehoz egy a telefonbillentyűzet szerű bemenet tárolására alkalmas tömböt.
+ * @param size A tömb mérete.
+ * @return Egy adott hosszúságú tömb.
  * @author Horváth Gergely Zsolt
  */
-long int read_tetel_ar();
+Array create_array(int size);
+
+/**
+ * Számot karakterré konvertál.
+ * @param number Hanyas szám.
+ * @param shift Hány darab van megadva a számból.
+ * @return Az angol abc egy kisbetűje vagy szóköz.
+ * @author Horváth Gergely Zsolt
+ */
+char map_number_to_char(unsigned short number, unsigned short shift);
+
+/**
+ * Egy karakterhez megadja a számot.
+ *
+ * @param character A karakter.
+ * @return a szám, amit a karakterhez rendelünk.
+ * @see map_number_to_char(unsigned short number, unsigned short shift)
+ */
+int map_char_to_number(char character);
+
+/**
+ * Egy karakterhez megadja az eltolást.
+ *
+ * @param character A karakter.
+ * @return az eltolás.
+ * @see map_number_to_char(unsigned short number, unsigned short shift)
+ */
+int map_char_to_offset(char character);
+
+/**
+ * Ez az eljárás teszi lehetővé, hogy három (7-9 esetén négy) szám egy karakternek számítson.
+ * @param array Az ellenőrizendő tömb.
+ * @param input A felhazsnáló által megadott bemenet.
+ * @param lastNum A legutóbbi bemenet.
+ * @author Horváth Gergely Zsolt
+ */
+void check_array(Array *array, int input, int lastNum);
+
+/**
+ * A tömb megnövelése, ha nincs már benne hely.
+ * @param array A megnövelni kívánt tömb.
+ * @author Horváth Gergely Zsolt
+ */
+void grow_array(Array *array);
+
+/**
+ * Felszabadít egy tömböt.
+ * @param array A felszabadítani kívánt tömb.
+ * @author Horváth Gergely Zsolt
+ */
+void free_array(Array *array);
+
+/**
+ * Egy tömb kezdő értékekkel való feltöltése.
+ * @param array A feltölteni kívánt tömb.
+ * @param start Mettől töltse fel értékekkel.
+ * @param end Meddig töltse fel értékekkel.
+ */
+void initialize_array(Array *array, int start, int end);
+
+/**
+ * Ellenőrzi, hogy a megadott feltételeknek eleget tesz-e a felhasználói bemenet.
+ * @param input Az ellenőrizendő szám.
+ * @return 0, ha helytelen a szám, 1 ha helyes.
+ * @author Horváth Gergely Zsolt
+ */
+int is_correct_input(char input);
+
+/**
+ * A lezárt tétel nevének összefűzése.
+ * @param array A tömb, ami a név karaktereit tárolja.
+ * @return Az összefűzött név.
+ * @author Horváth Gergely Zsolt
+ */
+char* join_tetel_nev(Array *array);
+
+/**
+ * Ellenőrzi, hogy a megadott szám pozitív-e. Ha helytelen a szám, tájékoztatást ad.
+ * @param input Az ellenőrizendő szám.
+ * @return 0, ha nempozitív, 1 ha pozitív.
+ * @author Horváth Gergely Zsolt
+ */
+int check_num(long int input);
+
+/**
+ * Beolvas egy pozitív egész számot.
+ * @return
+ * @author Horváth Gergely Zsolt
+ */
+long int scan_num();
+
+/**
+ * Kiírja a megadott számokat a képernyőre.
+ * @param array A számokat tartalmazó tömb.
+ * @author Horváth Gergely Zsolt
+ */
+void print_numbers(Array *array);
+
+/**
+ * Kiírja a megadott karaktereket a képernyőre.
+ * @param array A karaktereket tartalmazó tömb.
+ * @author Horváth Gergely Zsolt
+ */
+void print_characters(Array *array);
+
+/**
+ * Kirajzol a képernyőre egy billenytűzetet.
+ * @author Horváth Gergely Zsolt
+ */
+void print_keyboard();
