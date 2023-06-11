@@ -107,6 +107,40 @@ char map_number_to_char(unsigned short number, unsigned short shift) {
     return actualChar;
 }
 
+int map_char_to_number(char ch){
+    if (ch >= 'a') {
+        if (ch <= 'o') {
+            return 2 + ((ch - 'a') / 3);
+        } else if (ch <= 's') {
+            return 7 + ((ch - 'p') / 4);
+        } else if (ch <= 'v') {
+            return 8 + ((ch - 't') / 3);
+        } else {
+            return 9 + ((ch - 'w') / 4);
+        }
+    } else {
+        return 1;
+    }
+}
+
+int map_char_to_offset(char ch) {
+    if (ch >= 'a') {
+        if (ch <= 'o') {
+            return 1 + ((ch - 'a') % 3);
+        } else if (ch <= 's') {
+            return 1 + ((ch - 'p') % 4);
+        } else if (ch <= 'v') {
+            return 1 + ((ch - 't') % 3);
+        } else {
+            return 1 + ((ch - 'w') % 4);
+        }
+    } else if (ch == ' ') {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 void check_array(Array *array, int input, int lastNum) {
     int isThreeDigits =  ((input >= 1 && input <= 6) || (input == 8)) && array->items[array->size].numLength == 3;
     int isFourDigits = (input == 7 || input == 9) && array->items[array->size].numLength == 4;
@@ -119,9 +153,9 @@ void check_array(Array *array, int input, int lastNum) {
 
 void grow_array(Array* array) {
     if (array->free == 0) {
-        int newSize = (array->size + 1) * 2;
-        array->items = realloc(array->items, ((array->size + 1) * 2) * sizeof(CONTAINER));
-        array->free = array->size * 2;
+        int newSize = array->size * 2;
+        array->items = realloc(array->items, newSize * sizeof(CONTAINER));
+        array->free = array->size;
 
         initialize_array(array, array->size, newSize);
     }

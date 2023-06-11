@@ -22,6 +22,8 @@ static void test_read_tetel_nev_short() {
     char* result = read_tetel_nev();
 
     CU_ASSERT_STRING_EQUAL_FATAL(result, "a")
+
+    free(result);
 }
 
 static void test_read_tetel_nev_medium() {
@@ -36,6 +38,8 @@ static void test_read_tetel_nev_medium() {
     char* result = read_tetel_nev();
 
     CU_ASSERT_STRING_EQUAL_FATAL(result, "sajt")
+
+    free(result);
 }
 
 static void test_read_tetel_nev_long() {
@@ -48,16 +52,43 @@ static void test_read_tetel_nev_long() {
     freopen("BillenytuTest.txt", "r", stdin);
 
     char* result = read_tetel_nev();
+    char* expected = "krumpli krumpli";
 
-    CU_ASSERT_STRING_EQUAL_FATAL(result, "krumpli krumpli")
+    printf("%s = %s\n", result, expected);
+    CU_ASSERT_STRING_EQUAL_FATAL(result, expected)
+
+    free(result);
+}
+
+static void test_read_tetel_nev_very_long() {
+    FILE* input = fopen("BillenytuTest.txt", "w");
+    CU_ASSERT_PTR_NOT_NULL_FATAL(input);
+
+    write_input(input, "55777886755544415577788675554441557778867555444155777886755544415577788675554441557778867555444155777886755544415577788675554440"); // add name then ok
+
+    fclose(input);
+    freopen("BillenytuTest.txt", "r", stdin);
+
+    char* result = read_tetel_nev();
+    char* expected = "krumpli krumpli krumpli krumpli krumpli krumpli krumpli krumpli";
+
+    printf("%s = %s\n", result, expected);
+    CU_ASSERT_STRING_EQUAL_FATAL(result, expected)
 
     free(result);
 }
 
 static void test_map_number_to_char() {
-    char result = map_number_to_char(2, 1); // 2-es szám, 1 db
+    for (char ch = 'a'; ch <= 'z'; ++ch) {
+        char result = map_number_to_char(map_char_to_number(ch), map_char_to_offset(ch)); // 2-es szám, 1 db
+        printf("Testing %c -> %d,%d (%c)\n", ch, map_char_to_number(ch), map_char_to_offset(ch), result);
+        CU_ASSERT_EQUAL(result, ch);
+    }
 
-    CU_ASSERT_EQUAL(result, 'a');
+    char ch = ' ';
+    char result = map_number_to_char(map_char_to_number(ch), map_char_to_offset(ch)); // 2-es szám, 1 db
+    printf("Testing %c -> %d,%d (%c)\n", ch, map_char_to_number(ch), map_char_to_offset(ch), result);
+    CU_ASSERT_EQUAL(result, ch);
 }
 
 static void test_read_char() {
@@ -87,11 +118,12 @@ static void test_read_tetel_num() {
 }
 
 CU_TestInfo billentyu_tests[] = {
-        {"read_tetel_nev_short",               test_read_tetel_nev_short},
-        {"read_tetel_nev_medium",               test_read_tetel_nev_medium},
-        {"test_read_tetel_nev_long",               test_read_tetel_nev_long},
-        {"test_map_number_to_char",               test_map_number_to_char},
-        {"test_read_char",               test_read_char},
-        {"test_read_tetel_num",               test_read_tetel_num},
+        {"read_tetel_nev_short",            test_read_tetel_nev_short},
+        {"read_tetel_nev_medium",           test_read_tetel_nev_medium},
+        {"test_read_tetel_nev_long",        test_read_tetel_nev_long},
+        {"test_read_tetel_nev_very_long",   test_read_tetel_nev_very_long},
+        {"test_map_number_to_char",         test_map_number_to_char},
+        {"test_read_char",                  test_read_char},
+        {"test_read_tetel_num",             test_read_tetel_num},
         CU_TEST_INFO_NULL
 };

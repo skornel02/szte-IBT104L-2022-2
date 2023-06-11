@@ -82,6 +82,24 @@ Array create_array(int size);
 char map_number_to_char(unsigned short number, unsigned short shift);
 
 /**
+ * Egy karakterhez megadja a számot.
+ *
+ * @param character A karakter.
+ * @return a szám, amit a karakterhez rendelünk.
+ * @see map_number_to_char(unsigned short number, unsigned short shift)
+ */
+int map_char_to_number(char character);
+
+/**
+ * Egy karakterhez megadja az eltolást.
+ *
+ * @param character A karakter.
+ * @return az eltolás.
+ * @see map_number_to_char(unsigned short number, unsigned short shift)
+ */
+int map_char_to_offset(char character);
+
+/**
  * Ez az eljárás teszi lehetővé, hogy három (7-9 esetén négy) szám egy karakternek számítson.
  * @param array Az ellenőrizendő tömb.
  * @param input A felhazsnáló által megadott bemenet.
