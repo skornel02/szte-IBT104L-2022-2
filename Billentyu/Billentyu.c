@@ -145,7 +145,7 @@ void check_array(Array *array, int input, int lastNum) {
     int isThreeDigits =  ((input >= 1 && input <= 6) || (input == 8)) && array->items[array->size].numLength == 3;
     int isFourDigits = (input == 7 || input == 9) && array->items[array->size].numLength == 4;
 
-    if (input != lastNum || isThreeDigits || isFourDigits || input == 1) {
+    if (input != lastNum || isThreeDigits  || isFourDigits || input == 1) {
         array->size++;
         array->free--;
     }
@@ -153,16 +153,16 @@ void check_array(Array *array, int input, int lastNum) {
 
 void grow_array(Array* array) {
     if (array->free == 0) {
-        int newSize = (array->size) * 2;
+        int newSize = array->size * 2;
         array->items = realloc(array->items, newSize * sizeof(CONTAINER));
-        array->free = newSize;
+        array->free = array->size;
 
         initialize_array(array, array->size, newSize);
     }
 }
 
 char* join_tetel_nev(Array* array) {
-    char* tetel_nev = malloc(((array->size) * sizeof(char)));
+    char* tetel_nev = malloc(((array->size + 1) * sizeof(char)));
 
     // Tétel név inicializálása, legyen benne valami
     for (int i = 0; i < array->size+1; ++i) {
@@ -252,7 +252,7 @@ void print_numbers(Array *array) {
 }
 
 void print_characters(Array *array) {
-    for (int i = 1; i <= array->size; ++i) {
+    for (int i = 0; i < array->size + 1; ++i) {
         printf("%c", array->items[i].character);
     }
     printf("\n");
