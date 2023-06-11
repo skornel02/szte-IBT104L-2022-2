@@ -163,6 +163,7 @@ int main(int argc, char* argv[]) {
 #ifdef DEBUG
                     printf("DEBUG: EXITING");
 #endif
+                    free_nyugta_members(&nyugta);
                     exit(0);
                 }
             }
