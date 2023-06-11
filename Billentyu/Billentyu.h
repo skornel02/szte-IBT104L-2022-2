@@ -90,13 +90,19 @@ char map_number_to_char(unsigned short number, unsigned short shift);
  */
 void check_array(Array *array, int input, int lastNum);
 
-// Tömb növelése, ha nincs már hely
 /**
  * A tömb megnövelése, ha nincs már benne hely.
  * @param array A megnövelni kívánt tömb.
  * @author Horváth Gergely Zsolt
  */
 void grow_array(Array *array);
+
+/**
+ * Felszabadít egy tömböt.
+ * @param array A felszabadítani kívánt tömb.
+ * @author Horváth Gergely Zsolt
+ */
+void free_array(Array *array);
 
 /**
  * Ellenőrzi, hogy a megadott feltételeknek eleget tesz-e a felhasználói bemenet.
@@ -106,7 +112,6 @@ void grow_array(Array *array);
  */
 int is_correct_input(char input);
 
-// String összefűzése, miután le lett zárva a tétel neve
 /**
  * A lezárt tétel nevének összefűzése.
  * @param array A tömb, ami a név karaktereit tárolja.

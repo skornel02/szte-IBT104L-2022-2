@@ -23,8 +23,8 @@ char* read_tetel_nev() {
     int lastNum = 0;
 
     print_keyboard();
-    while ((input = read_char()) != 'x' || (input == 'x' && array.size == -1)) {
-        if (input == 'x'  && array.size == -1) {
+    while ((input = read_char()) != 'x' || (input == 'x' && array.size == 0)) {
+        if (input == 'x'  && array.size == 0) {
             printf("The name cannot be empty!\n");
             continue;
         }
@@ -62,6 +62,8 @@ char* read_tetel_nev() {
 
     char* tetelNev = array.size >= 0 ? join_tetel_nev(&array) : "";
 
+    free_array(&array);
+
     return tetelNev;
 }
 
@@ -80,7 +82,14 @@ int read_tetel_num() {
 Array create_array(int size) {
     Array array;
     array.items = malloc(size * sizeof(CONTAINER));
-    array.size = -1;
+    for (int i = 0; i < size; ++i) {
+        array.items[i].numLength = 0;
+        array.items[i].character = '\0';
+        for (int j = 0; j < 4; ++j) {
+            array.items[i].numbers[j] = 0;
+        }
+    }
+    array.size = 0;
     array.free = size;
 
     return array;
@@ -115,8 +124,8 @@ void check_array(Array *array, int input, int lastNum) {
 
 void grow_array(Array* array) {
     if (array->free == 0) {
-        Array *tmp = malloc(array->size * sizeof(CONTAINER));
-        tmp->items = realloc(array->items, (array->size * 2) * sizeof(CONTAINER));
+        Array *tmp = malloc((array->size + 1) * sizeof(CONTAINER));
+        tmp->items = realloc(array->items, ((array->size + 1) * 2) * sizeof(CONTAINER));
         if (tmp == NULL) {
             printf("Blimey! Something went horribly wrong!");
             free(tmp);
@@ -131,13 +140,16 @@ void grow_array(Array* array) {
 }
 
 char* join_tetel_nev(Array* array) {
-    char* tetel_nev = malloc((array->size * sizeof(char)));
+    char* tetel_nev = malloc(((array->size + 1) * sizeof(char)));
 
-    for (int i = 0; i < array->size + 1; ++i) {
-        tetel_nev[i] = array->items[i].character;
+    // Tétel név inicializálása, legyen benne valami
+    for (int i = 0; i < array->size+1; ++i) {
+        tetel_nev[i] = '\0';
     }
 
-    tetel_nev[array->size + 1] = '\0';
+    for (int i = 1; i < array->size + 1; ++i) {
+        tetel_nev[i-1] = array->items[i].character;
+    }
 
     return tetel_nev;
 }
@@ -149,7 +161,13 @@ int is_correct_input(char input) {
 long int scan_num() {
     char digits[10];
 
-    scanf("%9s", digits);
+    for (int i = 0; i < 10; ++i) {
+        digits[i] = '\0';
+    }
+
+    if (scanf("%9s", digits) != 1) {
+        return 0;
+    }
 
     // Be nem olvasott karakterek eltakarítása stdin-ről
     int x;
@@ -161,7 +179,7 @@ long int scan_num() {
         }
     }
 
-    // Csak akkor fogadja el az inputot, nincs az elején se szöveg
+    // Csak akkor fogadja el az inputot, ha nincs az elején se szöveg
     int firstDigitIndex = -1;
     for (int i = 0; i < 9; ++i) {
         if (digits[i] >= '0' && digits[i] <= '9') {
@@ -235,4 +253,10 @@ void print_keyboard() {
            "        |  ~0  |\n"
            "        | done |\n"
            "        '------'\n");
+}
+
+void free_array(Array *array) {
+    for (int i = 0; i < array->size; ++i) {
+        free(&array->items[i]);
+    }
 }
