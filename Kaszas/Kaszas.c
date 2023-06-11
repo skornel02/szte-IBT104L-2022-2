@@ -105,9 +105,6 @@ int program(int argc, char* argv[]) {
                     tetel->f_nev = NULL;
                     tetel->f_db = 0;
                     tetel->f_ar = 0;
-                } else {
-                    free(tetel->f_nev);
-                    free(tetel);
                 }
 
                 nyugta.osszesites =

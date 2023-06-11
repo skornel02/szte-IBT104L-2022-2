@@ -120,8 +120,8 @@ void check_array(Array *array, int input, int lastNum) {
 void grow_array(Array* array) {
     if (array->free == 0) {
         int newSize = (array->size + 1) * 2;
-        array->items = realloc(array->items, ((array->size + 1) * 2) * sizeof(CONTAINER));
-        array->free = array->size * 2;
+        array->items = realloc(array->items, newSize * sizeof(CONTAINER));
+        array->free = newSize;
 
         initialize_array(array, array->size, newSize);
     }
