@@ -23,8 +23,8 @@ char* read_tetel_nev() {
     int lastNum = 0;
 
     print_keyboard();
-    while ((input = read_char()) != 'x' || (input == 'x' && array.size == 0)) {
-        if (input == 'x'  && array.size == 0) {
+    while ((input = read_char()) != '0' || (input == '0' && array.size == 0)) {
+        if (input == '0'  && array.size == 0) {
             printf("The name cannot be empty!\n");
             continue;
         }
