@@ -25,13 +25,13 @@ static void test_kaszas() {
     CU_ASSERT_PTR_NOT_NULL_FATAL(input);
 
     add_item(input, "Kenyer", 2, 200);
-    write_command(input, 'i'); // save
+    write_command(input, 'y'); // save
     write_command(input, '1'); // add new
     add_item(input, "Tej", 1, 300);
-    write_command(input, 'i'); // save
+    write_command(input, 'y'); // save
     write_command(input, '1'); // add new
     add_item(input, "Sajtttt", 1, 500);
-    write_command(input, 'n'); // decline
+    write_command(input, 'N'); // decline
     write_command(input, '2'); // print
 
     FILE* nyugta1 = fopen("1.txt", "r");
@@ -40,7 +40,7 @@ static void test_kaszas() {
 
     write_command(input, '3');
     add_item(input, "Sajt", 1, 500);
-    write_command(input, 'i'); // save
+    write_command(input, 'y'); // save
     write_command(input, '2'); // print
 
     FILE* nyugta2 = fopen("2.txt", "r");

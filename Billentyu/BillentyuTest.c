@@ -1,25 +1,44 @@
+#include "BillentyuTest.h"
 #include "Billentyu.h"
 
 #include <CUnit/CUnit.h>
 
-static void test_read_tetel_nev() {
-    // TODO: Átirányítani standard inputot és úgy tesztenlni fgv-t
-
-    FILE *fp;
-    char str[] = "7\n7\n7\n7\n2\n5\n8\nx\n";
-
-    fp = fopen( "test.txt" , "w" );
-    fwrite(str , 1 , sizeof(str) , fp );
-    fclose(fp);
-
-    freopen("test.txt", "r", stdin);
-
-    char* sajt = "sajt";
-    CU_ASSERT_EQUAL(read_tetel_nev(), sajt);
+static void write_input(FILE* file, char* input) {
+    for (int i = 0; input[i] != '\0'; ++i) {
+        fprintf(file, "%c\n", input[i]);
+    }
 }
 
-CU_TestInfo nyomtato_tests[] = {
-        {"read_tetel_nev",               test_read_tetel_nev},
- //       {"number_length",              test_number_length},
+static void test_read_tetel_nev_short() {
+    FILE* input = fopen("BillenytuTest.txt", "w");
+    CU_ASSERT_PTR_NOT_NULL_FATAL(input);
+
+    write_input(input, "20"); // add name then ok
+
+    fclose(input);
+    freopen("BillenytuTest.txt", "r", stdin);
+
+    char* result = read_tetel_nev();
+
+    CU_ASSERT_STRING_EQUAL_FATAL(result, "a")
+}
+
+static void test_read_tetel_nev_medium() {
+    FILE* input = fopen("BillenytuTest.txt", "w");
+    CU_ASSERT_PTR_NOT_NULL_FATAL(input);
+
+    write_input(input, "77772580"); // add name then ok
+
+    fclose(input);
+    freopen("BillenytuTest.txt", "r", stdin);
+
+    char* result = read_tetel_nev();
+
+    CU_ASSERT_STRING_EQUAL_FATAL(result, "sajt")
+}
+
+CU_TestInfo billentyu_tests[] = {
+        {"read_tetel_nev_short",               test_read_tetel_nev_short},
+        {"read_tetel_nev_medium",               test_read_tetel_nev_medium},
         CU_TEST_INFO_NULL
 };

@@ -243,5 +243,5 @@ static void print_goodbye() {
       "trusty machine will be right here waiting. \nJust "
       "don't forget to pop by and say 'ello! \nCheerio now, "
       "and off you trot. \nMind the gap and keep calm and "
-      "carry on, as they say!");
+      "carry on, as they say!\n");
 }

@@ -1,8 +1,10 @@
-//
-// Created by Gergő on 2023. 06. 09..
-//
+#pragma once
 
-#ifndef KASSZAS_PROJEKT_BILLENTYUTEST_H
-#define KASSZAS_PROJEKT_BILLENTYUTEST_H
+#include <CUnit/CUnit.h>
 
-#endif //KASSZAS_PROJEKT_BILLENTYUTEST_H
+/**
+ * A billentyűzet modul tesztjei
+ *
+ * @author Vass Kinga
+ */
+extern CU_TestInfo billentyu_tests[];
