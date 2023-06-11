@@ -21,7 +21,7 @@ static void test_read_tetel_nev_short() {
 
     char* result = read_tetel_nev();
 
-    CU_ASSERT_STRING_EQUAL_FATAL(result, "a")
+    CU_ASSERT_STRING_EQUAL(result, "a")
 }
 
 static void test_read_tetel_nev_medium() {
@@ -35,7 +35,7 @@ static void test_read_tetel_nev_medium() {
 
     char* result = read_tetel_nev();
 
-    CU_ASSERT_STRING_EQUAL_FATAL(result, "sajt")
+    CU_ASSERT_STRING_EQUAL(result, "sajt")
 }
 
 static void test_read_tetel_nev_long() {
@@ -49,7 +49,7 @@ static void test_read_tetel_nev_long() {
 
     char* result = read_tetel_nev();
 
-    CU_ASSERT_STRING_EQUAL_FATAL(result, "krumpli krumpli")
+    CU_ASSERT_STRING_EQUAL(result, "krumpli krumpli")
 
     free(result);
 }
@@ -86,6 +86,15 @@ static void test_read_tetel_num() {
     CU_ASSERT_EQUAL(result, 200);
 }
 
+static void test_is_correct_input() {
+    CU_ASSERT_TRUE(is_correct_input('1'));
+    CU_ASSERT_TRUE(is_correct_input('9'));
+}
+
+static void test_incorrect_input() {
+    CU_ASSERT_FALSE(is_correct_input('0'));
+}
+
 CU_TestInfo billentyu_tests[] = {
         {"read_tetel_nev_short",               test_read_tetel_nev_short},
         {"read_tetel_nev_medium",               test_read_tetel_nev_medium},
@@ -93,5 +102,7 @@ CU_TestInfo billentyu_tests[] = {
         {"test_map_number_to_char",               test_map_number_to_char},
         {"test_read_char",               test_read_char},
         {"test_read_tetel_num",               test_read_tetel_num},
+        {"test_is_correct_input",               test_is_correct_input},
+        {"test_incorrect_input",               test_incorrect_input},
         CU_TEST_INFO_NULL
 };
