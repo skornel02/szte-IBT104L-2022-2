@@ -120,7 +120,7 @@ void check_array(Array *array, int input, int lastNum) {
 void grow_array(Array* array) {
     if (array->free == 0) {
         int newSize = (array->size + 1) * 2;
-        array->items = realloc(array->items, newSize * sizeof(CONTAINER));
+        array->items = realloc(array->items, ((array->size + 1) * 2) * sizeof(CONTAINER));
         array->free = array->size * 2;
 
         initialize_array(array, array->size, newSize);
@@ -135,7 +135,7 @@ char* join_tetel_nev(Array* array) {
         tetel_nev[i] = '\0';
     }
 
-    for (int i = 1; i < array->size + 1; ++i) {
+    for (int i = 1; i <= array->size; ++i) {
         tetel_nev[i-1] = array->items[i].character;
     }
 
